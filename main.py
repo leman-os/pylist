@@ -3,7 +3,7 @@
 # Читать и Выводить в csv
 # Сделать через ООП
 mass = []
-
+import webbrowser
 # функция заведения нового сотрудника
 def input_sotr (mass):
     key = True
@@ -40,7 +40,8 @@ while key:
              '[3] - Отсортировать по убыванию\n '
              '[4] - Добавить сотрудника\n '
              '[5] - Удалить сотрудника\n '
-             '[6] - Записать в файл\n'
+             '[6] - Записать в файл\n '
+              '[7] - Вывести в html\n '
              '[0] - завершить программу\n')
 
 # Обрабатываем ввод
@@ -71,6 +72,53 @@ while key:
             for n in m:
                 f.write(n+'\n')
             f.write('\n')
+
+    elif (a=='7'):
+        h = 1
+        httxt = '''
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf8">
+    <title>Сотрудники</title>
+    </head>
+    <body>
+    <div align=center>
+      <h2>Список сотрудников</h2>
+      <br>
+    <table border="1" cellpadding="7">
+        <tr>
+            <td><b>Номер</b></td>
+            <td><b>Фамилия</b></td>
+            <td><b>Инициалы</b></td>
+            <td><b>Отдел</b></td>
+            <td><b>Должность</b></td>
+            <td><b>Год</b></td>
+            <td><b>Оклад</b></td>
+        </tr>
+      '''
+        for i in mass:
+            httxt = httxt+'\n <tr> \n <td>' + str(h) + '</td>'
+            h = h + 1
+            for j in i:
+                httxt = httxt + '\n <td>'+ j + '</td>'
+            httxt = httxt + '\n </tr> \n'
+
+        httxt = httxt+'''
+                </table>
+                </div>
+                </body>
+            
+            </html>
+        '''
+        fname = input('Введите имя файла [по умолчанию default.html`]')
+        if (fname == ''):
+            fname = 'default'
+        f = open(fname + '.html', 'w')
+        f.write(httxt)
+        f.close()
+        webbrowser.open_new('file://'+'/Users/sergejgulin/PycharmProjects/firstproj/'+fname+'.html')
+        break
 
     elif (a=='0'):
         key = False
